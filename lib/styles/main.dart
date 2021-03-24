@@ -7,5 +7,6 @@ abstract class Styles {
     primaryColor: Colors.indigo,
     accentColor: Colors.indigoAccent,
     fontFamily: 'Nunito',
+
   );
 }
