@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:Expiali/layouts/home.dart';
+import 'package:Expiali/layouts/radar.dart';
+import 'package:Expiali/layouts/intents.dart';
+import 'package:Expiali/layouts/messages.dart';
+import 'package:Expiali/layouts/profile.dart';
 
 
 class Skeleton extends StatefulWidget {
@@ -16,11 +20,11 @@ class _SkeletonState extends State<Skeleton> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    HomeLayout(Colors.red),
-    HomeLayout(Colors.orange),
-    HomeLayout(Colors.yellow),
-    HomeLayout(Colors.green),
-    HomeLayout(Colors.blue),
+    HomeLayout(),
+    RadarLayout(),
+    IntentsLayout(),
+    MessagesLayout(),
+    ProfileLayout()
   ];
 
   void onTabTapped(int index) {

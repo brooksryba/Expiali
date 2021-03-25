@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:Expiali/models/preferences.dart';
 
 abstract class Styles {
   static ThemeData expialiTheme = ThemeData(
@@ -7,6 +7,5 @@ abstract class Styles {
     primaryColor: Colors.indigo,
     accentColor: Colors.indigoAccent,
     fontFamily: 'Nunito',
-
   );
 }

@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  matrix_api_lite: ^0.2.0
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_test:

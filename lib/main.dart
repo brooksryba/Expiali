@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Expiali/styles/main.dart';
 import 'package:Expiali/skeleton.dart';
-
+import 'package:Expiali/models/matrix.dart';
 
 class ExpialiApp extends StatelessWidget {
   @override
@@ -16,5 +16,6 @@ class ExpialiApp extends StatelessWidget {
 
 
 void main() {
+  MatrixHelper.getServerInfo();
   runApp(ExpialiApp());
 }
