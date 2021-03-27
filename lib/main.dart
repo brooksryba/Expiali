@@ -14,7 +14,6 @@ class ExpialiApp extends StatelessWidget {
   }
 }
 
-
 void main() {
   MatrixHelper.getServerInfo();
   runApp(ExpialiApp());
