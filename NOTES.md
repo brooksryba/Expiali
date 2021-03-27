@@ -1,0 +1,62 @@
+Interfaces: 
+    - Home
+        - Recent messages
+        - Discover local content
+        - Positive affirmations
+    - Radar / Intents
+        - Map view of users and groups
+        - Intent matrix configuration
+        - Roulette / Speed connection
+    - Messages / Games
+        - New Message
+        - Recent Groups
+        - User List
+        - Games with Matches
+        - Tags and Archive
+    - Profile
+        - User Image
+        - User Description
+            - School / Work
+            - Biography
+        - User Qualities
+            - Age
+            - Name
+            - Identity
+            - Orientation
+            - Location
+            - Language
+        - User Social Media
+            - Facebook
+            - Instagram
+            - Snapchat
+            - Twitter
+        - User Personality Test
+        - Download Backup
+        - Delete Account
+    - Settings
+        - Configure theme
+        - Configure privacy
+        - Configure security
+        - Configure notifications
+        - Invite friends
+        - Help Center
+        - About
+            - Inspiration
+            - Privacy / Data
+            - Technologies
+            - Open source credits
+
+New User Flow:
+    - Download app
+    - Open for first time
+    - Home page launches with welcome
+    - Prompt user to setup profile
+    - Return to home page
+    - Show explanation widgets on each interface
+    - Guide user to join one local community
+
+User Considerations: 
+    - Login once, forget after
+    - Facilitate passwordless accounts through email
+    - Allow user to disable explanation prompts
+    - Reduce burden of user to break-ice and socialize
