@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Flutter: Attach",
+            "type": "dart",
+            "request": "attach"
+        },
+        {
+            "name": "Flutter: Debug",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Flutter: Test",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/"
+        }
+    ]
+}
