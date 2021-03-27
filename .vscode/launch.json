@@ -1,21 +1,36 @@
 {
     "configurations": [
         {
-            "name": "Flutter: Attach",
-            "type": "dart",
-            "request": "attach"
-        },
-        {
-            "name": "Flutter: Debug",
+            "name": "Debug USB",
             "program": "lib/main.dart",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "deviceId": "05VAY1YCE6",
+            "flutterMode": "debug"
+        },        
+        {
+            "name": "Debug Android",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator",
+            "flutterMode": "debug"
         },
         {
-            "name": "Flutter: Test",
-            "type": "dart",
+            "name": "Debug iOS",
+            "program": "lib/main.dart",
             "request": "launch",
-            "program": "./test/"
+            "type": "dart",
+            "deviceId": "iphone",
+            "flutterMode": "debug"
+        },        
+        {
+            "name": "Debug Chrome",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome",
+            "flutterMode": "debug"
         }
     ]
 }
