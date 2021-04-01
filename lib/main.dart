@@ -7,14 +7,15 @@ class ExpialiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Expiali',
-      theme: Styles.expialiTheme,
-      home: Skeleton(title: 'Expiali'),
-    );
+        title: 'Expiali',
+        theme: Themes.lightTheme,
+        darkTheme: Themes.darkTheme,
+        themeMode: ThemeMode.dark,
+        home: Skeleton(title: 'Expiali'),
+        debugShowCheckedModeBanner: false);
   }
 }
 
 void main() {
-  MatrixHelper.getServerInfo();
   runApp(ExpialiApp());
 }

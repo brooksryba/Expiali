@@ -31,13 +31,11 @@ Interfaces:
             - Snapchat
             - Twitter
         - User Personality Test
-        - Download Backup
-        - Delete Account
     - Settings
         - Configure theme
-        - Configure privacy
         - Configure security
         - Configure notifications
+        - Delete Account
         - Invite friends
         - Help Center
         - About
