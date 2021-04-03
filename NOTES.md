@@ -30,7 +30,6 @@ Interfaces:
             - Instagram
             - Snapchat
             - Twitter
-        - User Personality Test
     - Settings
         - Configure theme
         - Configure security

@@ -1,6 +1,9 @@
 import 'package:matrix_api_lite/matrix_api_lite.dart';
 
-MatrixApi api = MatrixApi(homeserver: Uri.parse('https://matrix.org'));
+String homeserver = "matrix.org";
+String cdnserver = "matrix-client.matrix.org";
+String resourceUrl = "https://$cdnserver/_matrix/media/r0/thumbnail/$homeserver";
+MatrixApi api = MatrixApi(homeserver: Uri.parse("https://$homeserver"));
 
 
 class Matrix {
@@ -21,14 +24,14 @@ class Matrix {
 		return await api.requestServerCapabilities();
 	}
 
-	static Future getUserProfile() async {
-		return await api.requestProfile("@deisumus:matrix.org");
+	static Future getUserProfile(username) async {
+		return await api.requestProfile("@$username:matrix.org");
 	}
 
-	static Future getUserAvatar() async {
-		final response = await api.requestAvatarUrl("@deisumus:matrix.org");
-		return "https://matrix-client.matrix.org/_matrix/media/r0/thumbnail/matrix.org/" +
-				response.toString().split("/")[3] +
-				"?width=32&height=32";
+	static Future getUserAvatar(username, {height=32, width=32}) async {
+		final response = await api.requestAvatarUrl("@$username:matrix.org");
+		final resource = response.toString().split("/")[3];
+		
+		return "$resourceUrl/$resource?width=$width&height=$height";
 	}
 }
