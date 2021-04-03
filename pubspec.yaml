@@ -1,4 +1,4 @@
-name: Expiali
+name: expiali
 description: Flutter based decentralized application for dating and networking.
 publish_to: 'none'
 version: 1.0.0+1
@@ -10,7 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
   matrix_api_lite: ^0.2.0
-  shared_preferences: ^2.0.5
   settings_ui: ^0.6.0
 
 dev_dependencies:
