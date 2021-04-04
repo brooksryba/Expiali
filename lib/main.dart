@@ -7,6 +7,8 @@ import 'package:expiali/screens/settings.dart';
 import 'package:expiali/screens/messages.dart';
 import 'package:expiali/screens/profile.dart';
 
+import 'package:expiali/fixtures/session.dart';
+
 class ExpialiApp extends StatelessWidget {
   /// Wrapper of MaterialApp that returns the
   /// application skeleton with theme context
@@ -40,13 +42,7 @@ class _ExpialiSkeletonState extends State<ExpialiSkeleton> {
   int _currentIndex = 0;
 
   /// Initialize the child layouts for rendering
-  final List<Widget> _children = [
-    HomeLayout(),
-    RadarLayout(),
-    MessagesLayout(),
-    ProfileLayout(),
-    SettingsLayout()
-  ];
+  final List<Widget> _children = [HomeLayout(), RadarLayout(), MessagesLayout(), ProfileLayout(), SettingsLayout()];
 
   /// Handle the event from the BottomNavigationBar
   void onTabTapped(int index) {
@@ -66,7 +62,10 @@ class _ExpialiSkeletonState extends State<ExpialiSkeleton> {
         selectedItemColor: Theme.of(context).accentColor,
         unselectedItemColor: Theme.of(context).backgroundColor,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.public), label: "Radar"),
           BottomNavigationBarItem(icon: Icon(Icons.chat), label: "Messages"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),

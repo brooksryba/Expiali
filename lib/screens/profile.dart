@@ -23,28 +23,18 @@ class _ProfileLayoutState extends State<ProfileLayout> {
       children: <Widget>[
         Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                      backgroundImage: NetworkImage(_user.imageUrl),
-                      radius: 60.0),
-                  Text(
-                      "${_user.name} (${EnumToString.convertToString(_profile.pronouns[0], camelCase: true)} / ${EnumToString.convertToString(_profile.pronouns[1], camelCase: true)})"),
-                  Text(
-                      "Birthday: ${DateFormat('MM-dd-yyyy').format(_profile.birthdate)}"),
-                  Text(EnumToString.convertToString(_profile.language,
-                      camelCase: true)),
-                  Text(EnumToString.convertToString(_profile.identity,
-                      camelCase: true)),
-                  Text(EnumToString.convertToString(_profile.orientation,
-                      camelCase: true)),
-                  Text(
-                      "${_profile.school ?? "No School"} - ${_profile.profession ?? "No Profession"}"),
-                  SizedBox(height: 16.0),
-                  Text(_profile.biography)
-                ])),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.start, children: [
+              CircleAvatar(backgroundImage: NetworkImage(_user.imageUrl), radius: 60.0),
+              Text(
+                  "${_user.name} (${EnumToString.convertToString(_profile.pronouns[0], camelCase: true)} / ${EnumToString.convertToString(_profile.pronouns[1], camelCase: true)})"),
+              Text("Birthday: ${DateFormat('MM-dd-yyyy').format(_profile.birthdate)}"),
+              Text(EnumToString.convertToString(_profile.language, camelCase: true)),
+              Text(EnumToString.convertToString(_profile.identity, camelCase: true)),
+              Text(EnumToString.convertToString(_profile.orientation, camelCase: true)),
+              Text("${_profile.school ?? "No School"} - ${_profile.profession ?? "No Profession"}"),
+              SizedBox(height: 16.0),
+              Text(_profile.biography)
+            ])),
       ],
     );
   }

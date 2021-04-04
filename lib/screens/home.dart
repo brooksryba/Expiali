@@ -14,12 +14,14 @@ class _HomeLayoutState extends State<HomeLayout> {
   final kPasswordController = TextEditingController();
 
   _HomeLayoutState() {
-    initializeSession().then((val) => setState(() {}));
+    Session.initialize().then((val) => setState(() {}));
   }
 
   @override
   Widget build(BuildContext context) {
-    if (Session.authenticated == false) {
+    if (Session.initialized == false) {
+      return Text("Loading...");
+    } else if (Session.authenticated == false) {
       return ListView(
         children: <Widget>[
           Padding(
@@ -37,29 +39,24 @@ class _HomeLayoutState extends State<HomeLayout> {
             child: TextField(
               controller: kPasswordController,
               obscureText: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Password'),
+              decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'Password'),
             ),
           ),
           Padding(
             padding: EdgeInsets.all(10),
             child: Container(
               height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(5)),
+              decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(5)),
               child: TextButton(
                 onPressed: () {
-                  Matrix.login(
-                          kUserNameController.text, kPasswordController.text)
-                      .then((value) => setState(() {
-                            if (value == true) {
-                              Session.key = api.accessToken;
-                              populateSession(kUserNameController.text)
-                                  .then((value) => setState(() {
-                                        Session.authenticated = true;
-                                      }));
-                            }
-                          }));
+                  Matrix.login(kUserNameController.text, kPasswordController.text).then((value) => setState(() {
+                        if (value == true) {
+                          Session.key = api.accessToken;
+                          Session.populate(kUserNameController.text).then((value) => setState(() {
+                                Session.authenticated = true;
+                              }));
+                        }
+                      }));
                 },
                 child: Text(
                   'Login',
@@ -79,13 +76,15 @@ class _HomeLayoutState extends State<HomeLayout> {
       );
     } else {
       return ListView(children: <Widget>[
-        Text("Welcome back, ${Session.self.name}!"),
+        Text(
+          "Welcome back, ${Session.self.name}!",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Text("\nSession information:"),
-        Text("\t\tusername: ${Session.self.username}"),
-        Text("\t\tapikey: ${Session.key}"),
+        Text("\t\t${Session.key}", style: TextStyle(fontSize: 10.0)),
         TextButton(
           onPressed: () {
-            deleteSession().then((value) => setState(() {}));
+            Session.delete().then((value) => setState(() {}));
           },
           child: Text(
             'Logout',

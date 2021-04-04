@@ -2,8 +2,7 @@ import 'package:matrix_api_lite/matrix_api_lite.dart';
 
 String homeserver = "matrix.org";
 String cdnserver = "matrix-client.matrix.org";
-String resourceUrl =
-    "https://$cdnserver/_matrix/media/r0/thumbnail/$homeserver";
+String resourceUrl = "https://$cdnserver/_matrix/media/r0/thumbnail/$homeserver";
 MatrixApi api = MatrixApi(homeserver: Uri.parse("https://$homeserver"));
 
 class Matrix {
