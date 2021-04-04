@@ -25,10 +25,11 @@ class _MessagesLayoutState extends State<MessagesLayout> {
           return Column(
             children: <Widget>[
               ListTile(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                onTap: () async {
+                  final value = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return MessagesSession(session: _session);
                   }));
+                  setState(() {});
                 },
                 leading: Container(
                   decoration: BoxDecoration(
