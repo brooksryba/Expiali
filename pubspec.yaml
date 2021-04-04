@@ -12,6 +12,8 @@ dependencies:
   matrix_api_lite: ^0.2.0
   settings_ui: ^0.6.0
   timeago: ^3.0.2
+  enum_to_string: ^2.0.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

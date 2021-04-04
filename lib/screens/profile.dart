@@ -1,33 +1,55 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 
 import 'package:expiali/plugins/matrix.dart';
+import 'package:expiali/models/user.dart';
 import 'package:expiali/fixtures/session.dart';
 
-
 class ProfileLayout extends StatefulWidget {
-	@override
-	_ProfileLayoutState createState() => _ProfileLayoutState();
+  @override
+  _ProfileLayoutState createState() => _ProfileLayoutState();
 }
 
-
 class _ProfileLayoutState extends State<ProfileLayout> {
-	String _profileURL = "";
-	String _profileName = "Loading User...";
+  User _user = sessionSelf;
+  UserProfile _profile = sessionSelf.profile;
 
-	_ProfileLayoutState() {
-		Matrix.getUserProfile(sessionSelf.username).then((val) => setState(() { _profileName = val.displayname; }));
-		Matrix.getUserAvatar(sessionSelf.username).then((val) => setState(() { _profileURL = val; }));			
-	}
+  _ProfileLayoutState() {
+    Matrix.getUserAvatar(_user.username).then((val) => setState(() {
+          _user.imageUrl = val;
+        }));
+  }
 
-	@override
-	Widget build(BuildContext context) {
-		return Scaffold(
-			body: Column(
-				children: [
-					CircleAvatar(backgroundImage: NetworkImage(_profileURL)),
-					Text(_profileName)
-				]
-			)
-		);
-	}
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                      backgroundImage: NetworkImage(_user.imageUrl),
+                      radius: 60.0),
+                  Text(
+                      "${_user.name} (${EnumToString.convertToString(_profile.pronouns[0], camelCase: true)} / ${EnumToString.convertToString(_profile.pronouns[1], camelCase: true)})"),
+                  Text(
+                      "Birthday: ${DateFormat('MM-dd-yyyy').format(_profile.birthdate)}"),
+                  Text(EnumToString.convertToString(_profile.language,
+                      camelCase: true)),
+                  Text(EnumToString.convertToString(_profile.identity,
+                      camelCase: true)),
+                  Text(EnumToString.convertToString(_profile.orientation,
+                      camelCase: true)),
+                  Text(
+                      "${_profile.school ?? "No School"} - ${_profile.profession ?? "No Profession"}"),
+                  SizedBox(height: 16.0),
+                  Text(_profile.biography)
+                ])),
+      ],
+    );
+  }
 }
