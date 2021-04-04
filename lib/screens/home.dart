@@ -46,7 +46,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             padding: EdgeInsets.all(10),
             child: Container(
               height: 50,
-              decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(5)),
+              decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(5)),
               child: TextButton(
                 onPressed: () {
                   Matrix.login(kUserNameController.text, kPasswordController.text).then((value) => setState(() {
@@ -69,7 +69,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             onPressed: () {},
             child: Text(
               'Forgot Password',
-              style: TextStyle(color: Colors.blue, fontSize: 15),
+              style: TextStyle(color: Theme.of(context).accentColor, fontSize: 15),
             ),
           ),
         ],
