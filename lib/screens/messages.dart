@@ -11,9 +11,9 @@ class MessagesLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
-        itemCount: sessionMessageUsers.length,
+        itemCount: Session.sessions.length,
         itemBuilder: (context, index) {
-          UserSession _session = sessionMessageUsers[index];
+          UserSession _session = Session.sessions[index];
           UserMessage _latest = _session.latestMessage;
           User _model = _session.user;
 
@@ -165,15 +165,17 @@ class MessagesSession extends StatelessWidget {
           return Container(
             padding: EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
             child: Align(
-              alignment: (session.messages[index].sender != sessionSelf.username
-                  ? Alignment.topLeft
-                  : Alignment.topRight),
+              alignment:
+                  (session.messages[index].sender != Session.self.username
+                      ? Alignment.topLeft
+                      : Alignment.topRight),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: (session.messages[index].sender != sessionSelf.username
-                      ? Theme.of(context).accentColor
-                      : Theme.of(context).primaryColor),
+                  color:
+                      (session.messages[index].sender != Session.self.username
+                          ? Theme.of(context).accentColor
+                          : Theme.of(context).primaryColor),
                 ),
                 padding: EdgeInsets.all(12),
                 child: Text(

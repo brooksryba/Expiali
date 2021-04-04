@@ -12,14 +12,10 @@ class ProfileLayout extends StatefulWidget {
 }
 
 class _ProfileLayoutState extends State<ProfileLayout> {
-  User _user = sessionSelf;
-  UserProfile _profile = sessionSelf.profile;
+  User _user = Session.self;
+  UserProfile _profile = Session.profile;
 
-  _ProfileLayoutState() {
-    Matrix.getUserAvatar(_user.username).then((val) => setState(() {
-          _user.imageUrl = val;
-        }));
-  }
+  _ProfileLayoutState() {}
 
   @override
   Widget build(BuildContext context) {
