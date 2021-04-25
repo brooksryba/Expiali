@@ -8,8 +8,8 @@ class SettingsLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: SettingsList(
-	  lightBackgroundColor: Theme.of(context).bottomAppBarColor,
-	  darkBackgroundColor: Theme.of(context).bottomAppBarColor,
+      lightBackgroundColor: Theme.of(context).bottomAppBarColor,
+      darkBackgroundColor: Theme.of(context).bottomAppBarColor,
       sections: [
         SettingsSection(
           title: 'General',
