@@ -193,18 +193,16 @@ class MessagesSession extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Code for on action when pressed
-            // This should be used to send message to db and display on screen
-            // Only sends text if there is some text
-          },
+          onPressed: () {},
           child: const Icon(Icons.add_comment_rounded),
           backgroundColor: Theme.of(context).accentColor,
           elevation: 100),
       bottomSheet: TextFormField(
-          decoration: new InputDecoration(
-              hintText: "Send a message",
-              contentPadding: EdgeInsets.only(left: 10))),
+        decoration: new InputDecoration(
+          hintText: "Send a message",
+          contentPadding: EdgeInsets.only(left: 10),
+        ),
+      ),
     );
   }
 }

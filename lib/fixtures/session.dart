@@ -1,7 +1,10 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:expiali/models/user.dart';
-import 'package:expiali/models/group.dart';
+
 import 'package:expiali/plugins/matrix.dart';
 
 // Create storage
@@ -58,7 +61,11 @@ abstract class Session {
           orientation: UserOrientiation.straight,
           language: UserLanguage.english);
 
-      self = User(username: username, name: response.displayname, imageUrl: Matrix.getUserAvatar(response.avatarUrl), profile: profile);
+      self = User(
+          username: username,
+          name: response.displayname,
+          imageUrl: Matrix.getUserAvatar(response.avatarUrl),
+          profile: profile);
 
       serialize();
     }));
@@ -66,26 +73,77 @@ abstract class Session {
 }
 
 List<User> _users = [
-  User(username: "testUser1", name: "Joeseph", imageUrl: "https://randomuser.me/api/portraits/men/85.jpg", active: false),
-  User(username: "testUser2", name: "Karen", imageUrl: "https://randomuser.me/api/portraits/women/77.jpg", active: false),
-  User(username: "testUser3", name: "Andrew", imageUrl: "https://randomuser.me/api/portraits/men/81.jpg", active: true),
-  User(username: "testUser4", name: "Kate", imageUrl: "https://randomuser.me/api/portraits/women/49.jpg", active: true),
-  User(username: "testUser5", name: "Richard", imageUrl: "https://randomuser.me/api/portraits/men/87.jpg", active: false),
+  User(
+      username: "testUser1",
+      name: "Joeseph",
+      imageUrl: "https://randomuser.me/api/portraits/men/85.jpg",
+      active: false),
+  User(
+      username: "testUser2",
+      name: "Karen",
+      imageUrl: "https://randomuser.me/api/portraits/women/77.jpg",
+      active: false),
+  User(
+      username: "testUser3",
+      name: "Andrew",
+      imageUrl: "https://randomuser.me/api/portraits/men/81.jpg",
+      active: true),
+  User(
+      username: "testUser4",
+      name: "Kate",
+      imageUrl: "https://randomuser.me/api/portraits/women/49.jpg",
+      active: true),
+  User(
+      username: "testUser5",
+      name: "Richard",
+      imageUrl: "https://randomuser.me/api/portraits/men/87.jpg",
+      active: false),
 ];
 
 List<UserMessage> _messages = [
-  UserMessage(sender: "deisumus", recipient: "testUser2", content: "Hello World!", timestamp: DateTime.parse("2021-04-01 12:00"), unread: false),
-  UserMessage(sender: "deisumus", recipient: "testUser1", content: "Hello World!", timestamp: DateTime.parse("2021-04-01 12:00"), unread: false),
-  UserMessage(sender: "testUser1", recipient: "deisumus", content: "It Worked!", timestamp: DateTime.parse("2021-04-01 12:01"), unread: false),
   UserMessage(
-      sender: "deisumus", recipient: "testUser1", content: "Expiali.", timestamp: DateTime.now().subtract(new Duration(minutes: 15)), unread: true),
+      sender: "deisumus",
+      recipient: "testUser2",
+      content: "Hello World!",
+      timestamp: DateTime.parse("2021-04-01 12:00"),
+      unread: false),
+  UserMessage(
+      sender: "deisumus",
+      recipient: "testUser1",
+      content: "Hello World!",
+      timestamp: DateTime.parse("2021-04-01 12:00"),
+      unread: false),
+  UserMessage(
+      sender: "testUser1",
+      recipient: "deisumus",
+      content: "It Worked!",
+      timestamp: DateTime.parse("2021-04-01 12:01"),
+      unread: false),
+  UserMessage(
+      sender: "deisumus",
+      recipient: "testUser1",
+      content: "Expiali.",
+      timestamp: DateTime.now().subtract(new Duration(minutes: 15)),
+      unread: true),
 ];
 
 List<UserSession> _sessions = [
-  UserSession(user: _users[0], latestMessage: _messages[3], messages: [_messages[1], _messages[2], _messages[3]]),
-  UserSession(user: _users[1], latestMessage: _messages[0], messages: [_messages[0]]),
-  UserSession(user: _users[2], timestamp: DateTime.parse("2021-03-01 12:00"), messages: []),
-  UserSession(user: _users[3], timestamp: DateTime.parse("2021-02-01 12:00"), messages: []),
+  UserSession(
+      user: _users[0],
+      latestMessage: _messages[3],
+      messages: [_messages[1], _messages[2], _messages[3]]),
+  UserSession(
+      user: _users[1], latestMessage: _messages[0], messages: [_messages[0]]),
+  UserSession(
+      user: _users[2],
+      timestamp: DateTime.parse("2021-03-01 12:00"),
+      messages: []),
+  UserSession(
+      user: _users[3],
+      timestamp: DateTime.parse("2021-02-01 12:00"),
+      messages: []),
 ];
 
-List<Group> groups = [Group(title: "Test Group 1", description: "This is a test group")];
+List<Group> groups = [
+  Group(title: "Test Group 1", description: "This is a test group")
+];
