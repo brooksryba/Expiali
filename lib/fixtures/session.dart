@@ -143,7 +143,8 @@ List<UserSession> _sessions = [
       timestamp: DateTime.parse("2021-02-01 12:00"),
       messages: []),
 ];
-
+/*
 List<Group> groups = [
   Group(title: "Test Group 1", description: "This is a test group")
 ];
+*/

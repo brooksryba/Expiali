@@ -16,6 +16,7 @@ dependencies:
   intl: ^0.17.0
   flutter_secure_storage: ^4.1.0
   sqflite: ^2.0.0+3
+  path_provider: ^0.4.1
 
 dev_dependencies:
   flutter_test:

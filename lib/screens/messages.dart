@@ -1,8 +1,16 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:expiali/plugins/matrix.dart';
 
 import 'package:expiali/models/user.dart';
 import 'package:expiali/fixtures/session.dart';
+import 'package:expiali/fixtures/database_helper.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class MessagesLayout extends StatefulWidget {
   @override
@@ -98,6 +106,8 @@ class _MessagesLayoutState extends State<MessagesLayout> {
 
 class MessagesSession extends StatelessWidget {
   final UserSession session;
+  final dbHelper = DatabaseHelper.instance;
+  final messageContentController = TextEditingController();
 
   MessagesSession({Key key, @required this.session}) : super(key: key);
 
@@ -193,11 +203,14 @@ class MessagesSession extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            _insert(messageContentController.text);
+          },
           child: const Icon(Icons.add_comment_rounded),
           backgroundColor: Theme.of(context).accentColor,
           elevation: 100),
       bottomSheet: TextFormField(
+        controller: messageContentController,
         decoration: new InputDecoration(
           hintText: "Send a message",
           contentPadding: EdgeInsets.only(left: 10),
@@ -205,4 +218,50 @@ class MessagesSession extends StatelessWidget {
       ),
     );
   }
+
+  void _insert(String messageContent) async {
+    // row to insert
+    final username = await storage.read(key: "username");
+    final dateNow = DateFormat('yyyy-MM-dd kk:mm').format(DateTime.now());
+    print(messageContent);
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnSender: username, // Matrix.getUserProfile(username),
+      DatabaseHelper.columnRecipient: session.user.name,
+      DatabaseHelper.columnContent: messageContent,
+      DatabaseHelper.columnTimestamp: dateNow,
+      DatabaseHelper.columnUnread: 0,
+    };
+
+    final id = await dbHelper.insert(row);
+    print('inserted row id: $id');
+    //dbHelper.deleteDb(); //Use this to reset the entire database
+  }
+
+/*
+Template functions for handling database
+
+  void _query() async {
+    final allRows = await dbHelper.queryAllRows();
+    print('query all rows:');
+    allRows.forEach(print);
+  }
+
+  void _update() async {
+    // row to update
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: 1,
+      DatabaseHelper.columnName: 'Mary',
+      DatabaseHelper.columnAge: 32
+    };
+    final rowsAffected = await dbHelper.update(row);
+    print('updated $rowsAffected row(s)');
+  }
+
+  void _delete() async {
+    // Assuming that the number of rows is the id for the last row.
+    final id = await dbHelper.queryRowCount();
+    final rowsDeleted = await dbHelper.delete(id);
+    print('deleted $rowsDeleted row(s): row $id');
+  }
+  */
 }
