@@ -34,8 +34,9 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                 boxShadow: <BoxShadow>[BoxShadow(blurRadius: 30, spreadRadius: 7, color: Colors.black38)],
               )),
           Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(0.0),
               child: Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.start, children: [
+                SizedBox(height: 32.0),
                 Text("${_user.name}", style: TextStyle(fontSize: 32)),
                 Text("${DateFormat('MM-dd-yyyy').format(_profile.birthdate)}", style: TextStyle(fontSize: 16)),
                 SizedBox(height: 10),
@@ -53,11 +54,12 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                     TitledTag("Work: ", "${_profile.profession ?? "None"}"),
                   ],
                 ),
-                SizedBox(height: 32.0),
-                Text(
-                  _profile.biography,
-                  style: TextStyle(color: Theme.of(context).backgroundColor, fontSize: 15),
-                )
+                Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Text(
+                      _profile.biography,
+                      style: TextStyle(color: Theme.of(context).backgroundColor, fontSize: 15),
+                    )),
               ])),
         ],
       );
