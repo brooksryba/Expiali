@@ -5,6 +5,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:expiali/plugins/matrix.dart';
 import 'package:expiali/models/user.dart';
 import 'package:expiali/fixtures/session.dart';
+import 'package:expiali/widgets/titled_tag.dart';
 
 class ProfileLayout extends StatefulWidget {
   @override
@@ -43,85 +44,15 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                   runSpacing: 5,
                   alignment: WrapAlignment.center,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(7),
-                      child: Wrap(children: [
-                        Text(
-                          "Pronouns: ",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                            "${EnumToString.convertToString(_profile.pronouns[0], camelCase: true)} / ${EnumToString.convertToString(_profile.pronouns[1], camelCase: true)}")
-                      ]),
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            stops: [0.0, 0.5],
-                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
-                          ),
-                          borderRadius: const BorderRadius.all(const Radius.circular(5))),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(7),
-                      child: Wrap(children: [
-                        Text(
-                          "Identity: ",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(EnumToString.convertToString(_profile.identity, camelCase: true))
-                      ]),
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            stops: [0.0, 0.5],
-                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
-                          ),
-                          borderRadius: const BorderRadius.all(const Radius.circular(5))),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(7),
-                      child: Wrap(children: [
-                        Text(
-                          "Language: ",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(EnumToString.convertToString(_profile.language, camelCase: true))
-                      ]),
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            stops: [0.0, 0.5],
-                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
-                          ),
-                          borderRadius: const BorderRadius.all(const Radius.circular(5))),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(7),
-                      child: Wrap(children: [
-                        Text(
-                          "Orientation: ",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          EnumToString.convertToString(_profile.orientation, camelCase: true),
-                        )
-                      ]),
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            stops: [0.0, 0.5],
-                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
-                          ),
-                          borderRadius: const BorderRadius.all(const Radius.circular(5))),
-                    ),
+                    TitledTag("Pronouns: ",
+                        "${EnumToString.convertToString(_profile.pronouns[0], camelCase: true)} / ${EnumToString.convertToString(_profile.pronouns[1], camelCase: true)}"),
+                    TitledTag("Identity: ", EnumToString.convertToString(_profile.identity, camelCase: true)),
+                    TitledTag("Language:", EnumToString.convertToString(_profile.language, camelCase: true)),
+                    TitledTag("Orientation: ", EnumToString.convertToString(_profile.orientation, camelCase: true)),
+                    TitledTag("School: ", "${_profile.school ?? "None"}"),
+                    TitledTag("Work: ", "${_profile.profession ?? "None"}"),
                   ],
                 ),
-
-                //Text("${_profile.school ?? "No School"} - ${_profile.profession ?? "No Profession"}"),
                 SizedBox(height: 32.0),
                 Text(
                   _profile.biography,
