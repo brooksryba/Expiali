@@ -77,6 +77,7 @@ abstract class Session {
 }
 
 List<UserProfile> _profiles = [
+  // Brooks
   UserProfile(
       biography:
           "I created this application! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
@@ -85,6 +86,7 @@ List<UserProfile> _profiles = [
       identity: UserIdentity.man,
       orientation: UserOrientiation.straight,
       language: UserLanguage.english),
+  // Ricky
   UserProfile(
       biography:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
@@ -93,6 +95,7 @@ List<UserProfile> _profiles = [
       identity: UserIdentity.agender,
       orientation: UserOrientiation.asexual,
       language: UserLanguage.english),
+  // Nik
   UserProfile(
       biography:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
