@@ -113,7 +113,7 @@ List<User> _users = [
   User(username: "testUser4", name: "Kate", imageUrl: "https://randomuser.me/api/portraits/women/49.jpg", active: true),
   User(username: "testUser5", name: "Richard", imageUrl: "https://randomuser.me/api/portraits/men/87.jpg", active: false),
   User(username: "deisumus", name: "Brooks Ryba", profile: _profiles[0]),
-  User(username: "rickygreig", name: "Ricky Greig", profile: _profiles[1]),
+  User(username: "rickygreig3", name: "Ricky Greig", profile: _profiles[1]),
   User(username: "nremley", name: "Nik Remley", profile: _profiles[2]),
 ];
 
