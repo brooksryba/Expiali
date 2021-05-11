@@ -1,11 +1,11 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:expiali/models/user.dart';
 import 'package:expiali/models/group.dart';
 import 'package:expiali/plugins/matrix.dart';
 
 // Create storage
-final storage = new FlutterSecureStorage();
+//final storage = new FlutterSecureStorage();
 
 abstract class Session {
   static bool initialized = false;
@@ -20,7 +20,7 @@ abstract class Session {
   static List<UserSession> sessions = _sessions;
 
   static delete() async {
-    await storage.deleteAll();
+    //await storage.deleteAll();
 
     authenticated = false;
     key = null;
@@ -29,8 +29,11 @@ abstract class Session {
   }
 
   static initialize() async {
-    key = await storage.read(key: "apiKey");
-    final username = await storage.read(key: "username");
+    //key = await storage.read(key: "apiKey");
+    //final username = await storage.read(key: "username");
+
+    key = null;
+    final username = null;
 
     if (key != null && username != null) {
       authenticated = true;
@@ -43,8 +46,8 @@ abstract class Session {
   }
 
   static serialize() async {
-    await storage.write(key: "apiKey", value: key);
-    await storage.write(key: "username", value: self.username);
+    //await storage.write(key: "apiKey", value: key);
+    //await storage.write(key: "username", value: self.username);
   }
 
   static populate(username) async {
