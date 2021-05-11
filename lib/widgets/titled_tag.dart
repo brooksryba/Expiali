@@ -12,7 +12,7 @@ class TitledTag extends StatelessWidget {
       padding: EdgeInsets.all(7),
       child: Wrap(children: [
         Text(
-          title,
+          "$title: ",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text(

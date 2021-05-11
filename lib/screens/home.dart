@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:expiali/plugins/matrix.dart';
-import 'package:expiali/models/user.dart';
 import 'package:expiali/fixtures/session.dart';
 
 class HomeLayout extends StatefulWidget {
