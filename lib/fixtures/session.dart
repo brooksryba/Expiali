@@ -11,6 +11,7 @@ abstract class Session {
   static bool initialized = false;
   static bool authenticated = false;
   static String key;
+  static String username;
 
   static UserProfile profile;
   static User self;
@@ -24,6 +25,7 @@ abstract class Session {
 
     authenticated = false;
     key = null;
+    username = null;
     self = null;
     profile = null;
   }
@@ -32,12 +34,9 @@ abstract class Session {
     //key = await storage.read(key: "apiKey");
     //final username = await storage.read(key: "username");
 
-    key = null;
-    final username = null;
-
-    if (key != null && username != null) {
+    if (key != null && self != null && self.username != null) {
       authenticated = true;
-      await populate(username);
+      await populate(self.username);
     } else {
       authenticated = false;
     }
@@ -52,21 +51,57 @@ abstract class Session {
 
   static populate(username) async {
     await Matrix.getUserProfile(username).then(((response) {
-      profile = UserProfile(
-          biography:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
-          birthdate: DateTime.parse("1994-05-03 00:00:00"),
-          pronouns: [UserPronoun.he, UserPronoun.him],
-          identity: UserIdentity.man,
-          orientation: UserOrientiation.straight,
-          language: UserLanguage.english);
-
+      profile = Session.getUserFromFixtures(username);
       self = User(username: username, name: response.displayname, imageUrl: Matrix.getUserAvatar(response.avatarUrl), profile: profile);
 
       serialize();
     }));
   }
+
+  static getUserFromFixtures(username) {
+    for (var i = 0; i < _users.length; i++) {
+      if (_users[i].username == username && _users[i].profile != null) {
+        return _users[i].profile;
+      }
+    }
+
+    return UserProfile(
+        biography:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
+        birthdate: DateTime.parse("1970-01-01 00:00:00"),
+        pronouns: [UserPronoun.they, UserPronoun.them],
+        identity: UserIdentity.agender,
+        orientation: UserOrientiation.asexual,
+        language: UserLanguage.english);
+  }
 }
+
+List<UserProfile> _profiles = [
+  UserProfile(
+      biography:
+          "I created this application! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
+      birthdate: DateTime.parse("1994-05-03 00:00:00"),
+      pronouns: [UserPronoun.he, UserPronoun.him],
+      identity: UserIdentity.man,
+      orientation: UserOrientiation.straight,
+      language: UserLanguage.english),
+  UserProfile(
+      biography:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
+      birthdate: DateTime.parse("1970-01-01 00:00:00"),
+      pronouns: [UserPronoun.they, UserPronoun.them],
+      identity: UserIdentity.agender,
+      orientation: UserOrientiation.asexual,
+      language: UserLanguage.english),
+  UserProfile(
+      biography:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum nec metus id eleifend. Aenean viverra lacus nisl, mattis vehicula nisl iaculis at. Vivamus euismod placerat ultrices. In sit amet felis at libero euismod varius. Fusce a leo erat. Donec sodales leo eget elit faucibus, egestas consectetur elit vehicula. Fusce ut egestas urna, ac dictum tellus. Nulla ante sapien, scelerisque et molestie quis, tincidunt vitae diam. Aliquam aliquam lorem ipsum. Ut lectus nisl, scelerisque vitae ante quis, rhoncus luctus mi.\n\nMorbi varius nisl id dapibus luctus. Etiam condimentum dolor quam, eget blandit augue dignissim et. Phasellus at mattis risus. Maecenas laoreet blandit turpis, et elementum purus bibendum et. Sed vel nisl sollicitudin, molestie mi ac, malesuada ante. Sed efficitur lacinia ligula at ullamcorper. Nunc vulputate nec magna ut finibus. Vivamus tincidunt lorem nec arcu dapibus posuere. Curabitur enim turpis, maximus quis nunc quis, eleifend convallis elit. Fusce consectetur massa luctus, tempor lorem ac, ornare sapien.",
+      birthdate: DateTime.parse("1970-01-01 00:00:00"),
+      pronouns: [UserPronoun.they, UserPronoun.them],
+      identity: UserIdentity.agender,
+      orientation: UserOrientiation.asexual,
+      language: UserLanguage.english)
+];
 
 List<User> _users = [
   User(username: "testUser1", name: "Joeseph", imageUrl: "https://randomuser.me/api/portraits/men/85.jpg", active: false),
@@ -74,6 +109,9 @@ List<User> _users = [
   User(username: "testUser3", name: "Andrew", imageUrl: "https://randomuser.me/api/portraits/men/81.jpg", active: true),
   User(username: "testUser4", name: "Kate", imageUrl: "https://randomuser.me/api/portraits/women/49.jpg", active: true),
   User(username: "testUser5", name: "Richard", imageUrl: "https://randomuser.me/api/portraits/men/87.jpg", active: false),
+  User(username: "deisumus", name: "Brooks Ryba", profile: _profiles[0]),
+  User(username: "rickygreig", name: "Ricky Greig", profile: _profiles[1]),
+  User(username: "nremley", name: "Nik Remley", profile: _profiles[2]),
 ];
 
 List<UserMessage> _messages = [

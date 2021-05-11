@@ -76,7 +76,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     } else {
       return ListView(children: <Widget>[
         Text(
-          "Welcome back, ${Session.self.name}!",
+          "Welcome back, ${Session.self.username}!",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text("\nSession information:"),
