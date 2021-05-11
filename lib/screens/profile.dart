@@ -23,15 +23,15 @@ class _ProfileLayoutState extends State<ProfileLayout> {
       return ListView(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: 300,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fitWidth,
-                image: NetworkImage(_user.imageUrl),
-              ),
-            ),
-          ),
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fitWidth,
+                  image: NetworkImage(_user.imageUrl),
+                ),
+                boxShadow: <BoxShadow>[BoxShadow(blurRadius: 30, spreadRadius: 7, color: Colors.black38)],
+              )),
           Padding(
               padding: const EdgeInsets.all(30.0),
               child: Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -53,7 +53,14 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                         Text(
                             "${EnumToString.convertToString(_profile.pronouns[0], camelCase: true)} / ${EnumToString.convertToString(_profile.pronouns[1], camelCase: true)}")
                       ]),
-                      decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: const BorderRadius.all(const Radius.circular(5))),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [0.0, 0.5],
+                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
+                          ),
+                          borderRadius: const BorderRadius.all(const Radius.circular(5))),
                     ),
                     Container(
                       padding: EdgeInsets.all(7),
@@ -64,7 +71,14 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                         ),
                         Text(EnumToString.convertToString(_profile.identity, camelCase: true))
                       ]),
-                      decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: const BorderRadius.all(const Radius.circular(5))),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [0.0, 0.5],
+                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
+                          ),
+                          borderRadius: const BorderRadius.all(const Radius.circular(5))),
                     ),
                     Container(
                       padding: EdgeInsets.all(7),
@@ -75,7 +89,14 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                         ),
                         Text(EnumToString.convertToString(_profile.language, camelCase: true))
                       ]),
-                      decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: const BorderRadius.all(const Radius.circular(5))),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [0.0, 0.5],
+                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
+                          ),
+                          borderRadius: const BorderRadius.all(const Radius.circular(5))),
                     ),
                     Container(
                       padding: EdgeInsets.all(7),
@@ -86,22 +107,14 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                         ),
                         Text(
                           EnumToString.convertToString(_profile.orientation, camelCase: true),
-                          style: TextStyle(color: Colors.black),
                         )
                       ]),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topRight,
                             end: Alignment.bottomLeft,
-                            stops: [
-                              0.0,
-                              0.2,
-                              0.4,
-                              0.6,
-                              0.8,
-                              1,
-                            ],
-                            colors: [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple],
+                            stops: [0.0, 0.5],
+                            colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
                           ),
                           borderRadius: const BorderRadius.all(const Radius.circular(5))),
                     ),
