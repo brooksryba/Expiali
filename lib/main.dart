@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -21,7 +23,7 @@ class ExpialiApp extends StatelessWidget {
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
         link: AuthLink(getToken: () => SESSION_AUTH_TOKEN).concat(HttpLink(
-          "http://10.0.2.2:3000/graphql",
+          "http://${Platform.isAndroid ? "10.0.2.2" : "0.0.0.0"}:3000/graphql",
         )),
         cache: GraphQLCache(store: HiveStore()),
       ),
