@@ -1,10 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:expiali/models/user.dart';
-import 'package:expiali/fixtures/session.dart';
 import 'package:expiali/widgets/image_box.dart';
 import 'package:expiali/widgets/titled_tag.dart';
 
@@ -35,9 +33,6 @@ class ProfileLayout extends StatefulWidget {
 }
 
 class _ProfileLayoutState extends State<ProfileLayout> {
-  User _user = Session.self;
-  UserProfile _profile = Session.profile;
-
   @override
   Widget build(BuildContext context) {
     return Query(
