@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:expiali/styles/theme.dart';
 import 'package:expiali/screens/home.dart';
@@ -16,14 +17,28 @@ class ExpialiApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Expiali',
-      theme: Themes.light,
-      darkTheme: Themes.dark,
-      themeMode: ThemeMode.dark,
-      debugShowCheckedModeBanner: false,
-      home: ExpialiSkeleton(),
+    ValueNotifier<GraphQLClient> client = ValueNotifier(
+      GraphQLClient(
+        link: HttpLink(
+          "http://10.0.2.2:3000/graphql",
+          defaultHeaders: <String, String>{
+            'Authentication': 'bse/HnvHaUHrW5b6t8LJ9j8Ovg==--Xk7PApuYs9pfBIuc--NuzH2mBt0+Fnm/X8kY1NXw==',
+          },
+        ),
+        cache: GraphQLCache(store: HiveStore()),
+      ),
     );
+
+    return GraphQLProvider(
+        client: client,
+        child: MaterialApp(
+          title: 'Expiali',
+          theme: Themes.light,
+          darkTheme: Themes.dark,
+          themeMode: ThemeMode.dark,
+          debugShowCheckedModeBanner: false,
+          home: ExpialiSkeleton(),
+        ));
   }
 }
 
@@ -76,6 +91,8 @@ class _ExpialiSkeletonState extends State<ExpialiSkeleton> {
   }
 }
 
-void main() {
+void main() async {
+  await initHiveForFlutter();
+
   runApp(ExpialiApp());
 }

@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'package:expiali/models/user.dart';
-import 'package:expiali/fixtures/session.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
+final String readConversations = """
+    query readConversations() {
+		conversations {
+			id
+				authorId
+				recipientId
+				messages {
+					id
+					authorId
+					content
+					createdAt
+				}
+		}
+    }
+""";
 
 class MessagesLayout extends StatefulWidget {
   @override
@@ -12,76 +27,89 @@ class MessagesLayout extends StatefulWidget {
 class _MessagesLayoutState extends State<MessagesLayout> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: Session.sessions.length,
-        itemBuilder: (context, index) {
-          UserSession _session = Session.sessions[index];
-          UserMessage _latest = _session.latestMessage;
-          User _model = _session.user;
-
-          String _timestamp = timeago.format(_latest?.timestamp ?? _session.timestamp);
-
-          return Column(
-            children: <Widget>[
-              ListTile(
-                onTap: () async {
-                  final value = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return MessagesSession(session: _session);
-                  }));
-                  setState(() {});
-                },
-                leading: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: _model.active ? Theme.of(context).accentColor : Colors.transparent, width: 3)),
-                  child: CircleAvatar(radius: 24.0, backgroundImage: NetworkImage(_model.imageUrl)),
-                ),
-                title: Row(
-                  children: <Widget>[
-                    Text(_model.name, style: TextStyle(fontWeight: FontWeight.bold, color: (_latest?.unread ?? false) ? Colors.white : Colors.grey)),
-                    SizedBox(width: 10.0),
-                    Text(_timestamp,
-                        style: TextStyle(
-                            fontSize: 12.0, color: Colors.grey, fontWeight: (_latest?.unread ?? false) ? FontWeight.bold : FontWeight.normal)),
-                  ],
-                ),
-                subtitle: Text(_latest?.content ?? "No messages",
-                    style: TextStyle(
-                        fontWeight: (_latest?.unread ?? false) ? FontWeight.bold : FontWeight.normal,
-                        color: (_latest?.unread ?? false) ? Colors.white : Colors.grey)),
-                trailing: Wrap(
-                  spacing: 12,
-                  alignment: WrapAlignment.start,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.notification_important,
-                      size: 24.0,
-                      color: Theme.of(context).accentColor.withOpacity((_latest?.unread ?? false) ? 1 : 0),
-                    ),
-                    Icon(Icons.arrow_forward_ios, size: 14.0), // icon-2
-                  ],
-                ),
-              ),
-              Divider(height: 12.0),
-            ],
-          );
-        },
+    return Query(
+      options: QueryOptions(
+        document: gql(readConversations),
+        fetchPolicy: FetchPolicy.noCache,
       ),
+      builder: (QueryResult result, {VoidCallback refetch, FetchMore fetchMore}) {
+        if (result.hasException) {
+          return Text(result.exception.toString());
+        }
+
+        if (result.isLoading) {
+          return Text('Loading');
+        }
+
+        // it can be either Map or List
+        List conversations = result.data['conversations'];
+
+        return Container(
+          child: ListView.builder(
+            itemCount: conversations.length,
+            itemBuilder: (context, index) {
+              var _model = conversations[index];
+              var _latest = _model["messages"][_model["messages"].length - 1];
+              String _timestamp = timeago.format(DateTime.parse(_latest["createdAt"]));
+
+              return Column(
+                children: <Widget>[
+                  ListTile(
+                    onTap: () async {
+                      final value = await Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return MessagesSession(model: _model);
+                      }));
+                      setState(() {});
+                    },
+                    leading: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: false ? Theme.of(context).accentColor : Colors.transparent, width: 3)),
+                      child: CircleAvatar(radius: 24.0, backgroundImage: NetworkImage("")),
+                    ),
+                    title: Row(
+                      children: <Widget>[
+                        Text(_model["recipientId"].toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: (false) ? Colors.white : Colors.grey)),
+                        SizedBox(width: 10.0),
+                        Text(_timestamp,
+                            style: TextStyle(fontSize: 12.0, color: Colors.grey, fontWeight: (false) ? FontWeight.bold : FontWeight.normal)),
+                      ],
+                    ),
+                    subtitle: Text(_latest["content"] ?? "No messages",
+                        style: TextStyle(fontWeight: (false) ? FontWeight.bold : FontWeight.normal, color: (false) ? Colors.white : Colors.grey)),
+                    trailing: Wrap(
+                      spacing: 12,
+                      alignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.notification_important,
+                          size: 24.0,
+                          color: Theme.of(context).accentColor.withOpacity((false) ? 1 : 0),
+                        ),
+                        Icon(Icons.arrow_forward_ios, size: 14.0), // icon-2
+                      ],
+                    ),
+                  ),
+                  Divider(height: 12.0),
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
 
 class MessagesSession extends StatelessWidget {
-  final UserSession session;
+  final model;
 
-  MessagesSession({Key key, @required this.session}) : super(key: key);
+  MessagesSession({Key key, @required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    session.latestMessage?.unread = false;
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -103,7 +131,7 @@ class MessagesSession extends StatelessWidget {
                   width: 2,
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(session.user.imageUrl),
+                  backgroundImage: NetworkImage(""),
                   maxRadius: 20,
                 ),
                 SizedBox(
@@ -115,12 +143,12 @@ class MessagesSession extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        session.user.name,
+                        model["recipientId"].toString(),
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        (session.user.active ? "Online" : "Offline"),
-                        style: TextStyle(color: (session.user.active ? Colors.white : Colors.black), fontSize: 13),
+                        (false ? "Online" : "Offline"),
+                        style: TextStyle(color: (false ? Colors.white : Colors.black), fontSize: 13),
                       ),
                     ],
                   ),
@@ -135,22 +163,22 @@ class MessagesSession extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        itemCount: session.messages.length,
+        itemCount: model["messages"].length,
         shrinkWrap: true,
         padding: EdgeInsets.only(top: 10, bottom: 10),
         itemBuilder: (context, index) {
           return Container(
             padding: EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
             child: Align(
-              alignment: (session.messages[index].sender != Session.self.username ? Alignment.topLeft : Alignment.topRight),
+              alignment: (model["messages"][index]["authorId"] != model["authorId"] ? Alignment.topLeft : Alignment.topRight),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: (session.messages[index].sender != Session.self.username ? Theme.of(context).accentColor : Theme.of(context).primaryColor),
+                  color: (model["messages"][index]["authorId"] != model["authorId"] ? Theme.of(context).accentColor : Theme.of(context).primaryColor),
                 ),
                 padding: EdgeInsets.all(12),
                 child: Text(
-                  session.messages[index].content,
+                  model["messages"][index]["content"],
                   style: TextStyle(fontSize: 14),
                 ),
               ),

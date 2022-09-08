@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:expiali/plugins/matrix.dart';
 import 'package:expiali/fixtures/session.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -47,16 +46,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               height: 50,
               decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(5)),
               child: TextButton(
-                onPressed: () {
-                  Matrix.login(kUserNameController.text, kPasswordController.text).then((value) => setState(() {
-                        if (value == true) {
-                          Session.key = api.accessToken;
-                          Session.populate(kUserNameController.text).then((value) => setState(() {
-                                Session.authenticated = true;
-                              }));
-                        }
-                      }));
-                },
+                onPressed: () {},
                 child: Text(
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 18),
